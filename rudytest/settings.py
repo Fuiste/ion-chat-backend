@@ -49,6 +49,25 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_RENDERER_CLASSES': (
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer', # Any other renders
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'djangorestframework_camel_case.parser.CamelCaseJSONParser', # Any other parsers
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',  # optional
+    ),
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    }
+
 ROOT_URLCONF = 'rudytest.urls'
 
 WSGI_APPLICATION = 'rudytest.wsgi.application'
@@ -59,11 +78,14 @@ WSGI_APPLICATION = 'rudytest.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'NAME': os.environ.get('BACKEND_DB_NAME', 'ionic_db'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'USER': os.environ.get('POSTGRES_DB_USER', 'fuiste'),
+        'PASSWORD': os.environ.get('POSTGRES_DB_PASS', ''),
+        'HOST': 'localhost',
+        'PORT': '5432',
+        }
 }
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
