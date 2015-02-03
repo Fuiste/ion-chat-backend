@@ -1,3 +1,1 @@
-from django.shortcuts import render
-
-# Create your views here.
+# Yeah there's nothing here after all
