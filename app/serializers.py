@@ -46,8 +46,8 @@ class EmailUserObtainAuthToken(APIView):
 
     def post(self, request):
         serializer = self.serializer_class(data=request.DATA)
-        return Response(serializer.validate(request.DATA).id)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        c_serializer = ChatterSerializer(serializer.validate(request.DATA))
+        return Response(c_serializer.data)
 
 
 class MessageSerializer(serializers.ModelSerializer):
