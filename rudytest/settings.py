@@ -90,6 +90,14 @@ DATABASES = {
         'PORT': '5432',
         }
 }
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
+
+db_config = dj_database_url.config()
+if db_config:
+    DATABASES["default"] = db_config
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
