@@ -12,7 +12,7 @@ class MessageAdmin(admin.ModelAdmin):
 
 class ChatterAdmin(EmailUserAdmin):
     fieldsets = EmailUserAdmin.fieldsets + (
-        (None, {'fields': ('is_admin',)}),
+        (None, {'fields': ('full_name',)}),
     )
 
     class Meta:
