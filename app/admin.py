@@ -18,3 +18,7 @@ class ChatterAdmin(EmailUserAdmin):
     class Meta:
         verbose_name = 'Chat user'
         verbose_name_plural = 'Chat users'
+
+
+admin.site.register(Chatter, ChatterAdmin)
+admin.site.register(Message, MessageAdmin)
