@@ -45,8 +45,8 @@ class EmailUserObtainAuthToken(APIView):
     model = Token
 
     def post(self, request):
-        user = self.serializer_class(data=request.DATA)
-        return Response(user.id)
+        serializer = self.serializer_class(data=request.DATA)
+        return Response(serializer.validate(request.DATA))
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
