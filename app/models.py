@@ -19,7 +19,7 @@ class Chatter(AbstractEmailUser):
         verbose_name_plural = 'Chatters'
 
     def __unicode__(self):
-        return '{0} - {2}'.format(self.full_name, self.email)
+        return '{0} - {1}'.format(self.full_name, self.email)
 
     def __str__(self):
         return unicode(self)
