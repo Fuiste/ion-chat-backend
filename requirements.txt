@@ -7,4 +7,5 @@ djangorestframework==3.0.4
 djangorestframework-camel-case==0.2.0
 gunicorn==19.2.0
 psycopg2==2.5.4
+whitenoise==1.0.6
 wsgiref==0.1.2
