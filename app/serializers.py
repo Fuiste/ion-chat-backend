@@ -121,10 +121,9 @@ class ChatterDetail(APIView):
             raise Http404
 
     def get(self, request, pk, format=None):
-        return Response(pk)
-        # chatter = self.get_object(pk)
-        # serializer = ChatterSerializer(chatter)
-        # return Response(serializer.data)
+        chatter = self.get_object(pk)
+        serializer = ChatterSerializer(chatter)
+        return Response(serializer.data)
 
     def put(self, request, pk, format=None):
         if "id" not in request.DATA:
