@@ -100,7 +100,7 @@ class MessageDetail(APIView):
 
     def get_object(self, pk):
         try:
-            return Message.objects.get(pk=pk)
+            return Message.objects.get(id=pk)
         except Message.DoesNotExist:
             raise Http404
 
@@ -118,7 +118,7 @@ class ChatterDetail(APIView):
         try:
             print "FINDING YO"
             print pk
-            return Chatter.objects.get(pk=pk)
+            return Chatter.objects.get(id=pk)
         except Chatter.DoesNotExist:
             raise Http404
 
