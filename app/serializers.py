@@ -27,7 +27,7 @@ class EmailUserAuthTokenSerializer(serializers.Serializer):
                     msg = _('User account is disabled.')
                     raise serializers.ValidationError(msg)
                 attrs['user'] = user
-                return attrs
+                return user
             else:
                 msg = _('Unable to log in with provided credentials.')
                 raise serializers.ValidationError(msg)
@@ -45,9 +45,8 @@ class EmailUserObtainAuthToken(APIView):
     model = Token
 
     def post(self, request):
-        serializer = self.serializer_class(data=request.DATA)
-        if serializer.is_valid():
-            return Response(serializer.data)
+        user = self.serializer_class(data=request.DATA)
+        return Response(user.id)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
