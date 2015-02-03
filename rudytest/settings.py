@@ -26,6 +26,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'app.Chatter'
+
 
 # Application definition
 
@@ -37,7 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'custom_user'
+    'custom_user',
+    'app'
 )
 
 MIDDLEWARE_CLASSES = (
