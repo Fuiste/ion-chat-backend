@@ -105,7 +105,6 @@ class MessageDetail(APIView):
             raise Http404
 
     def get(self, request, pk, format=None):
-        return pk
         message = self.get_object(pk)
         serializer = MessageSerializer(message)
         return Response(serializer.data)
@@ -122,6 +121,7 @@ class ChatterDetail(APIView):
             raise Http404
 
     def get(self, request, pk, format=None):
+        return Response(pk)
         chatter = self.get_object(pk)
         serializer = ChatterSerializer(chatter)
         return Response(serializer.data)
