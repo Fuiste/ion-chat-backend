@@ -12,7 +12,7 @@ class Message(models.Model):
 
 class Chatter(AbstractEmailUser):
     full_name = models.CharField(max_length=200, null=True, blank=True)
-    imgur_url = models.CharField(max_length=400, null=False, default="http://imgur.com/23el4Y8")
+    imgur_url = models.CharField(max_length=400, null=False, default="http://i.imgur.com/23el4Y8.jpg")
     message_history = models.ManyToManyField('Message', null=True, blank=True)
 
     class Meta:
