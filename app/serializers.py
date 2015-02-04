@@ -83,7 +83,7 @@ class MessageList(APIView):
     def post(self, request, format=None):
         try:
             to_user = Chatter.objects.get(email=request.DATA['username'])
-            from_user = Chatter.objects.get(id=request.DATA['userId'])
+            from_user = Chatter.objects.get(id=int(request.DATA['userId']))
             msg = Message(from_user=from_user, to_user=to_user, text=request.DATA['message'], created_at=timezone.now())
             msg.save()
             serializer=MessageSerializer(msg)
