@@ -7,14 +7,14 @@ __author__ = "fuiste"
 # Create your models here.
 class Message(models.Model):
     text = models.CharField(max_length=1000, null=True, blank=True)
-    sender = models.ForeignKey('Chatter', null=True, blank=True)
+    msg_from = models.ForeignKey('Chatter', null=True, blank=True)
+    msg_to = models.ForeignKey('Chatter', related_name='Message_msg_to', null=True, blank=True)
     created_at = models.DateTimeField(null=False, default=timezone.now())
 
 
 class Chatter(AbstractEmailUser):
     full_name = models.CharField(max_length=200, null=True, blank=True)
     imgur_url = models.CharField(max_length=400, null=False, default="http://i.imgur.com/23el4Y8.jpg")
-    message_history = models.ManyToManyField('Message', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Chatter'

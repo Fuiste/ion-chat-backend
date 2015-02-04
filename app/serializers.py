@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 from app.models import Message, Chatter
 from rest_framework import parsers, renderers, status
 from rest_framework.authtoken.models import Token
+from django.utils import timezone
 
 
 __author__ = 'fuiste'
@@ -46,8 +47,12 @@ class EmailUserObtainAuthToken(APIView):
 
     def post(self, request):
         serializer = self.serializer_class(data=request.DATA)
-        c_serializer = ChatterSerializer(serializer.validate(request.DATA))
-        return Response(c_serializer.data)
+        usr = serializer.validate(request.DATA)
+        c_serializer = ChatterSerializer(usr)
+        dict = c_serializer.data
+        for m in Message.objects.filter(msg_to=usr)[-5:]:
+            dict["messageHistory"].append(m.text)
+        return Response(dict)
 
 
 class MessageSerializer(serializers.ModelSerializer):
@@ -70,11 +75,15 @@ class MessageList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        serializer = MessageSerializer(data=request.DATA)
-        if serializer.is_valid():
-            serializer.save()
+        try:
+            to_user = Chatter.objects.get(email=request.DATA['username'])
+            from_user = Chatter.objects.get(id=request.DATA['userId'])
+            msg = Message(from_user=from_user, to_user=to_user, text=request.DATA['message'], created_at=timezone.now())
+            msg.save()
+            serializer=MessageSerializer(msg)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Chatter.DoesNotExist:
+            raise Http404
 
 
 class ChatterList(APIView):
