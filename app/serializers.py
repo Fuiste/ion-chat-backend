@@ -50,8 +50,13 @@ class EmailUserObtainAuthToken(APIView):
         usr = serializer.validate(request.DATA)
         c_serializer = ChatterSerializer(usr)
         dict = c_serializer.data
-        for m in Message.objects.filter(msg_to=usr)[-5:]:
-            dict["messageHistory"].append(m.text)
+        msgs = Message.objects.filter(msg_to=usr)
+        if len(msgs) > 5:
+            for m in msgs[len(msgs)-5:]:
+                dict["messageHistory"].append(m.text)
+        else:
+            for m in msgs:
+                dict["messageHistory"].append(m.text)
         return Response(dict)
 
 
