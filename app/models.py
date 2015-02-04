@@ -7,8 +7,8 @@ __author__ = "fuiste"
 # Create your models here.
 class Message(models.Model):
     text = models.CharField(max_length=1000, null=True, blank=True)
-    msg_from = models.ForeignKey('Chatter', null=True, blank=True)
-    msg_to = models.ForeignKey('Chatter', related_name='Message_msg_to', null=True, blank=True)
+    msg_from = models.ForeignKey('Chatter', related_name='msg_from', null=True, blank=True)
+    msg_to = models.ForeignKey('Chatter', related_name='msg_to', null=True, blank=True)
     created_at = models.DateTimeField(null=False, default=timezone.now())
 
 
