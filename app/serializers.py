@@ -89,7 +89,9 @@ class ChatterList(APIView):
     def post(self, request, format=None):
         serializer = ChatterSerializer(data=request.DATA)
         if serializer.is_valid():
-            serializer.save()
+            usr = serializer.save()
+            usr.set_password(request.DATA['password'])
+            usr.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
