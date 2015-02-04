@@ -8,6 +8,7 @@ __author__ = "fuiste"
 class Message(models.Model):
     text = models.CharField(max_length=1000, null=True, blank=True)
     sender = models.ForeignKey('Chatter', null=True, blank=True)
+    created_at = models.DateTimeField(null=False, default=timezone.now())
 
 
 class Chatter(AbstractEmailUser):
