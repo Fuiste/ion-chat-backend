@@ -82,15 +82,12 @@ class MessageList(APIView):
 
     def post(self, request, format=None):
         try:
-            return Response(request.DATA)
-            """
             to_user = Chatter.objects.get(email=request.DATA['username'])
-            from_user = Chatter.objects.get(email=request.DATA['userFrom'])
+            from_user = Chatter.objects.get(email=request.DATA['userfrom'])
             msg = Message(from_user=from_user, to_user=to_user, text=request.DATA['message'], created_at=timezone.now())
             msg.save()
             serializer=MessageSerializer(msg)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-            """
         except Chatter.DoesNotExist:
             raise Http404
 
