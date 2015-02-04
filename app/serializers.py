@@ -84,7 +84,7 @@ class MessageList(APIView):
         try:
             to_user = Chatter.objects.get(email=request.DATA['username'])
             from_user = Chatter.objects.get(email=request.DATA['userfrom'])
-            msg = Message(from_user=from_user, to_user=to_user, text=request.DATA['message'], created_at=timezone.now())
+            msg = Message(msg_from=from_user, msg_to=to_user, text=request.DATA['message'], created_at=timezone.now())
             msg.save()
             serializer=MessageSerializer(msg)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
