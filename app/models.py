@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from custom_user.models import AbstractEmailUser
 
-__author__ = "fuiste"
+__author__ = "fuiste "
 
 # Create your models here.
 class Message(models.Model):
