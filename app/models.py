@@ -2,7 +2,7 @@ from django.db import models
 from django.utils import timezone
 from custom_user.models import AbstractEmailUser
 
-__author__ = "fuiste "
+__author__ = "fuiste"
 
 # Create your models here.
 class Message(models.Model):
@@ -15,6 +15,7 @@ class Message(models.Model):
 class Chatter(AbstractEmailUser):
     full_name = models.CharField(max_length=200, null=True, blank=True)
     imgur_url = models.CharField(max_length=400, null=False, default="http://i.imgur.com/23el4Y8.jpg")
+    device_token = models.CharField(max_length=200, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Chatter'
