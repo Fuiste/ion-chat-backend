@@ -2,6 +2,7 @@
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import status
 from rest_framework.authentication import SessionAuthentication
 from app.models import Chatter
 import logging
@@ -31,10 +32,10 @@ class DeviceRegisterView(APIView):
         logger.info("Got a POST")
         logger.info(request.POST)
 
-        dev_token = request.POST['ios_token']
-        user_id = request.POST['metadata']['user_id']
+        dev_token = request.POST["ios_token"]
+        user_id = request.POST["metadata"]["user_id"]
         chatter = Chatter.objects.get(id=user_id)
         chatter.device_token = dev_token
         chatter.save()
 
-        return Response({"Success": "Token saved!"})
+        return Response({"Success": "Token saved!"}, status=status.HTTP_200_OK)
