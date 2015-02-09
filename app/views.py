@@ -33,6 +33,8 @@ class DeviceRegisterView(View):
 
         return HttpResponse(json.dumps({"Success": "Token saved!"}), content_type="application/json")
 
+    """
     @csrf_exempt
     def dispatch(self, *args, **kwargs):
         return super(DeviceRegisterView, self).dispatch(*args, **kwargs)
+    """
