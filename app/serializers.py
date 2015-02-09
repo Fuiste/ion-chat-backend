@@ -9,8 +9,10 @@ from app.models import Message, Chatter
 from rest_framework import parsers, renderers, status
 from rest_framework.authtoken.models import Token
 from django.utils import timezone
+import logging
 
 
+logger = logging.getLogger('django')
 __author__ = 'fuiste'
 
 

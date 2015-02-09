@@ -1,23 +1,22 @@
 # -*- coding: utf-8 -*-
 import json
 from django.http import HttpResponse
-from django.views.generic import View
+from rest_framework.views import APIView
 from django.views.decorators.csrf import csrf_exempt
 from app.models import Chatter
 import logging
 
 
-logger = logging.getLogger('testlogger')
+logger = logging.getLogger('django')
 __author__ = "fuiste"
 
 
-class DeviceRegisterView(View):
+class DeviceRegisterView(APIView):
     """
     The endpoint for Ionic's push notification service.  will receive a http POST with the device token and user
     metadata.  That's pretty neat.
     """
 
-    @csrf_exempt
     def post(self, request, *args, **kwargs):
         """
         The endpoint.  Adds the token to the Chatter model.
@@ -33,8 +32,6 @@ class DeviceRegisterView(View):
 
         return HttpResponse(json.dumps({"Success": "Token saved!"}), content_type="application/json")
 
-    """
     @csrf_exempt
     def dispatch(self, *args, **kwargs):
         return super(DeviceRegisterView, self).dispatch(*args, **kwargs)
-    """
