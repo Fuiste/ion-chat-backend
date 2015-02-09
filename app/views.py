@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.views.decorators.csrf import csrf_exempt
+import json
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -30,11 +30,12 @@ class DeviceRegisterView(APIView):
         The endpoint.  Adds the token to the Chatter model.
         """
         print "Got a POST"
-        print request.POST["ios_token"]
-        print request.POST['metadata']
+        post_dict = json.loads(request.POST)
+        print post_dict["ios_token"]
+        print post_dict['metadata']
 
-        dev_token = request.POST.get("ios_token")
-        user_id = request.POST.get("metadata")["user_id"]
+        dev_token = post_dict["ios_token"]
+        user_id = post_dict["metadata"]["user_id"]
         chatter = Chatter.objects.get(id=user_id)
         chatter.device_token = dev_token
         chatter.save()
