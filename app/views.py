@@ -17,6 +17,7 @@ class DeviceRegisterView(APIView):
     The endpoint for Ionic's push notification service.  will receive a http POST with the device token and user
     metadata.  That's pretty neat.
     """
+    authentication_classes = ()
 
     def post(self, request, format=None):
         """
