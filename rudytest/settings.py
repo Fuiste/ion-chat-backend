@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'corsheaders',
     'custom_user',
+    'herokuapp',
     'app'
 )
 
