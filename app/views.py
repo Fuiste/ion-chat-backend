@@ -4,8 +4,10 @@ from django.http import HttpResponse
 from django.views.generic import View
 from django.views.decorators.csrf import csrf_exempt
 from app.models import Chatter
+import logging
 
 
+logger = logging.getLogger('testlogger')
 __author__ = "fuiste"
 
 
@@ -19,6 +21,9 @@ class DeviceRegisterView(View):
         """
         The endpoint.  Adds the token to the Chatter model.
         """
+        logger.info("Got a POST")
+        logger.info(request.POST)
+
         dev_token = request.POST['ios_token']
         user_id = request.POST['metadata']['user_id']
         chatter = Chatter.objects.get(id=user_id)
