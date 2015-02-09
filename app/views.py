@@ -17,6 +17,7 @@ class DeviceRegisterView(View):
     metadata.  That's pretty neat.
     """
 
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         """
         The endpoint.  Adds the token to the Chatter model.
