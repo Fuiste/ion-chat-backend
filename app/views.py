@@ -31,9 +31,10 @@ class DeviceRegisterView(APIView):
         """
         print "Got a POST"
         print request.POST
+        print request.POST.get('metadata')
 
         dev_token = request.POST.get("ios_token")
-        user_id = request.POST.get("metadata").get("user_id")
+        user_id = request.POST.get("metadata")["user_id"]
         chatter = Chatter.objects.get(id=user_id)
         chatter.device_token = dev_token
         chatter.save()
