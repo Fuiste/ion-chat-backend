@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -18,6 +17,7 @@ class DummySessionAuthentication(SessionAuthentication):
         return None
 
 
+@csrf_exempt
 class DeviceRegisterView(APIView):
     """
     The endpoint for Ionic's push notification service.  will receive a http POST with the device token and user
@@ -39,7 +39,3 @@ class DeviceRegisterView(APIView):
         chatter.save()
 
         return Response({"Success": "Token saved!"})
-
-    @method_decorator(csrf_exempt)
-    def dispatch(self, *args, **kwargs):
-        return super(DeviceRegisterView, self).dispatch(*args, **kwargs)
