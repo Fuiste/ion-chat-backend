@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import json
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authentication import SessionAuthentication
 from app.models import Chatter
 import logging
@@ -40,3 +40,7 @@ class DeviceRegisterView(APIView):
         chatter.save()
 
         return Response({"Success": "Token saved!"})
+
+    @csrf_exempt
+    def dispatch(self, *args, **kwargs):
+        return super(DeviceRegisterView, self).dispatch(*args, **kwargs)
