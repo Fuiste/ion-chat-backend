@@ -1,12 +1,11 @@
 from django.http import Http404
 from django.contrib.auth import authenticate
 from django.utils.translation import ugettext_lazy as _
-from rest_framework import serializers, viewsets, status
+from rest_framework import serializers, status, renderers, parsers
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from app.models import Message, Chatter
-from rest_framework import parsers, renderers, status
 from rest_framework.authtoken.models import Token
 from django.utils import timezone
 import logging
