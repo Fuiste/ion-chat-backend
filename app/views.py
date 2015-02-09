@@ -30,8 +30,8 @@ class DeviceRegisterView(APIView):
         The endpoint.  Adds the token to the Chatter model.
         """
         print "Got a POST"
-        print request.POST
-        print request.POST.get('metadata')
+        print request.POST["ios_token"]
+        print request.POST['metadata']
 
         dev_token = request.POST.get("ios_token")
         user_id = request.POST.get("metadata")["user_id"]
