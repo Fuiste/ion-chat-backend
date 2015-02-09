@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 from django.http import HttpResponse
+from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.views.decorators.csrf import csrf_exempt
 from app.models import Chatter
@@ -17,7 +18,7 @@ class DeviceRegisterView(APIView):
     metadata.  That's pretty neat.
     """
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, format=None):
         """
         The endpoint.  Adds the token to the Chatter model.
         """
@@ -30,7 +31,7 @@ class DeviceRegisterView(APIView):
         chatter.device_token = dev_token
         chatter.save()
 
-        return HttpResponse(json.dumps({"Success": "Token saved!"}), content_type="application/json")
+        return Response({"Success": "Token saved!"})
 
     @csrf_exempt
     def dispatch(self, *args, **kwargs):
