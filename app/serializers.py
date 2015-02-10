@@ -91,6 +91,7 @@ class MessageList(APIView):
 
             # If recipient has a token stored, send them a push notification
             if not to_user.device_token == Chatter.NO_TOKEN:
+                print "Device token found, sending push"
                 # Build the payload
                 push_dict = {}
                 notification_dict = {}
@@ -104,13 +105,17 @@ class MessageList(APIView):
                 push_dict["notification"] = notification_dict
 
                 # Build the POST
-                url = "https://push.ionic.io/api/v1/push"
-                req = urllib2.Request(url, data=json.dumps(push_dict))
-                req.add_header("Content-Type", "application/json")
-                req.add_header("X-Ionic-Application-Id", "92e87c0b")
-                req.add_header("X-Ionic-API-Key", "c34a09a9d3a5fbbdda83078daef693806d15d3435b2996ee")
-                resp = urllib2.urlopen(req)
-                print resp
+                try:
+                    url = "https://push.ionic.io/api/v1/push"
+                    req = urllib2.Request(url, data=json.dumps(push_dict))
+                    req.add_header("Content-Type", "application/json")
+                    req.add_header("X-Ionic-Application-Id", "92e87c0b")
+                    req.add_header("X-Ionic-API-Key", "c34a09a9d3a5fbbdda83078daef693806d15d3435b2996ee")
+                    resp = urllib2.urlopen(req)
+                    print resp
+                except urllib2.HTTPError, e:
+                    print e.fp.read()
+
             else:
                 print "No device token, push will not be sent"
 
