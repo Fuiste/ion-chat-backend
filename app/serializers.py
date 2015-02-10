@@ -111,6 +111,8 @@ class MessageList(APIView):
                 req.add_header("X-Ionic-API-Key", "c34a09a9d3a5fbbdda83078daef693806d15d3435b2996ee")
                 resp = urllib2.urlopen(req)
                 print resp
+            else:
+                print "No device token, push will not be sent"
 
             msg.save()
             serializer = MessageSerializer(msg)
