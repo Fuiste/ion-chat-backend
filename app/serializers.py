@@ -90,7 +90,7 @@ class MessageList(APIView):
             msg = Message(msg_from=from_user, msg_to=to_user, text=request.DATA['message'], created_at=timezone.now())
 
             # If recipient has a token stored, send them a push notification
-            if to_user.device_token:
+            if not to_user.device_token == Chatter.NO_TOKEN:
                 # Build the payload
                 push_dict = {}
                 notification_dict = {}
