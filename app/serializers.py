@@ -105,6 +105,8 @@ class MessageList(APIView):
                 push_dict["notification"] = notification_dict
 
                 # Build the POST
+
+                # curl -H "Content-Type: application/json" -H "X-Ionic-Applicaton-Id: 92e87c0b" -H "X-Ionic-API-Key: c34a09a9d3a5fbbdda83078daef693806d15d3435b2996ee" -d '{"platform": "ios","tokens":["6f6609366d7fe668ca2ed2dde38dfbe0cc15f1c82930ce5c7972827190e278df"],"notification":{"alert":"Basic push!","ios":{"badge":4,"sound":"ping.aiff"}}}' https://push.ionic.io/api/v1/push
                 try:
                     url = "https://push.ionic.io/api/v1/push"
                     req = urllib2.Request(url, data=json.dumps(push_dict))
@@ -112,7 +114,7 @@ class MessageList(APIView):
                     req.add_header("X-Ionic-Application-Id", "92e87c0b")
                     req.add_header("X-Ionic-API-Key", "c34a09a9d3a5fbbdda83078daef693806d15d3435b2996ee")
                     resp = urllib2.urlopen(req)
-                    print resp
+                    print resp.fp.read()
                 except urllib2.HTTPError, e:
                     print e.fp.read()
 
