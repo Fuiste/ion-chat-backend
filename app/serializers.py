@@ -88,7 +88,6 @@ class MessageList(APIView):
             to_user = Chatter.objects.get(email=request.DATA['username'])
             from_user = Chatter.objects.get(email=request.DATA['userfrom'])
             msg = Message(msg_from=from_user, msg_to=to_user, text=request.DATA['message'], created_at=timezone.now())
-            msg.save()
 
             # If recipient has a token stored, send them a push notification
             if to_user.device_token:
@@ -113,7 +112,7 @@ class MessageList(APIView):
                 req.add_header("X-Ionic-API-Key", "c34a09a9d3a5fbbdda83078daef693806d15d3435b2996ee")
                 opener.open(req)
 
-
+            msg.save()
             serializer = MessageSerializer(msg)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Chatter.DoesNotExist:
