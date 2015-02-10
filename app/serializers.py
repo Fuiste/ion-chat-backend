@@ -107,7 +107,7 @@ class MessageList(APIView):
                 # Build the POST
                 url = "https://push.ionic.io/api/v1/push"
                 opener = urllib2.build_opener(urllib2.HTTPHandler)
-                req = urllib2.Request(url, data=json.dumps(data))
+                req = urllib2.Request(url, data=json.dumps(push_dict))
                 req.add_header("Content-Type", "application/json")
                 req.add_header("X-Ionic-Application-Id", "92e87c0b")
                 req.add_header("X-Ionic-API-Key", "c34a09a9d3a5fbbdda83078daef693806d15d3435b2996ee")
