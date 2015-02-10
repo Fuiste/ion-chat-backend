@@ -9,6 +9,8 @@ from app.models import Message, Chatter
 from rest_framework.authtoken.models import Token
 from django.utils import timezone
 import logging
+import urllib2
+import json
 
 
 logger = logging.getLogger('django')
@@ -87,7 +89,32 @@ class MessageList(APIView):
             from_user = Chatter.objects.get(email=request.DATA['userfrom'])
             msg = Message(msg_from=from_user, msg_to=to_user, text=request.DATA['message'], created_at=timezone.now())
             msg.save()
-            serializer=MessageSerializer(msg)
+
+            # If recipient has a token stored, send them a push notification
+            if to_user.device_token:
+                # Build the payload
+                push_dict = {}
+                notification_dict = {}
+                ios_dict = {}
+                push_dict["platform"] = "ios"
+                push_dict["tokens"] = [to_user.device_token]
+                notification_dict["alert"] = "{0} says: \n{1}".format(from_user.full_name, msg.text)
+                ios_dict["badge"] = 1
+                ios_dict["sound"] = ""
+                notification_dict["ios"] = ios_dict
+                push_dict["notification"] = notification_dict
+
+                # Build the POST
+                url = "https://push.ionic.io/api/v1/push"
+                opener = urllib2.build_opener(urllib2.HTTPHandler)
+                req = urllib2.Request(url, data=json.dumps(data))
+                req.add_header("Content-Type", "application/json")
+                req.add_header("X-Ionic-Application-Id", "92e87c0b")
+                req.add_header("X-Ionic-API-Key", "c34a09a9d3a5fbbdda83078daef693806d15d3435b2996ee")
+                opener.open(req)
+
+
+            serializer = MessageSerializer(msg)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Chatter.DoesNotExist:
             raise Http404
