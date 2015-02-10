@@ -98,19 +98,19 @@ class MessageList(APIView):
                 push_dict["platform"] = "ios"
                 push_dict["tokens"] = [to_user.device_token]
                 notification_dict["alert"] = "{0} says: \n{1}".format(from_user.full_name, msg.text)
-                ios_dict["badge"] = 1
-                ios_dict["sound"] = ""
+                ios_dict["badge"] = 2
+                ios_dict["sound"] = "ping.aiff"
                 notification_dict["ios"] = ios_dict
                 push_dict["notification"] = notification_dict
 
                 # Build the POST
                 url = "https://push.ionic.io/api/v1/push"
-                opener = urllib2.build_opener(urllib2.HTTPHandler)
                 req = urllib2.Request(url, data=json.dumps(push_dict))
                 req.add_header("Content-Type", "application/json")
                 req.add_header("X-Ionic-Application-Id", "92e87c0b")
                 req.add_header("X-Ionic-API-Key", "c34a09a9d3a5fbbdda83078daef693806d15d3435b2996ee")
-                opener.open(req)
+                resp = urllib2.urlopen(req)
+                print resp
 
             msg.save()
             serializer = MessageSerializer(msg)
