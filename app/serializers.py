@@ -56,7 +56,8 @@ class EmailUserObtainAuthToken(APIView):
         msgs = Message.objects.filter(msg_to=usr)
         dict["messageHistory"] = []
         if len(msgs) > 5:
-            for m in msgs[len(msgs)-5:]:
+            # for m in msgs[len(msgs)-5:]:
+            for m in msgs[:5]:
                 dict["messageHistory"].append({"text": m.text, "from": m.msg_from.full_name, "img": m.msg_from.imgur_url})
         else:
             for m in msgs:
