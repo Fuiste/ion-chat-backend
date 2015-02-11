@@ -58,10 +58,10 @@ class EmailUserObtainAuthToken(APIView):
         if len(msgs) > 5:
             # for m in msgs[len(msgs)-5:]:
             for m in msgs[:5]:
-                dict["messageHistory"].append({"text": m.text, "from": m.msg_from.full_name, "img": m.msg_from.imgur_url})
+                dict["messageHistory"].append({"text": m.text, "from": m.msg_from.full_name, "fromEmail": m.msg_from.email, "img": m.msg_from.imgur_url})
         else:
             for m in msgs:
-                dict["messageHistory"].append({"text": m.text, "from": m.msg_from.full_name, "img": m.msg_from.imgur_url})
+                dict["messageHistory"].append({"text": m.text, "from": m.msg_from.full_name, "fromEmail": m.msg_from.email, "img": m.msg_from.imgur_url})
         return Response(dict)
 
 
