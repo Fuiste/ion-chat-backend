@@ -35,6 +35,7 @@ class DeviceRegisterView(APIView):
             dev_token = post_dict["ios_token"]
         elif "android_token" in post_dict:
             dev_token = post_dict["android_token"]
+        print "Registered token {0}".format(dev_token)
         user_id = post_dict["metadata"]["user_id"]
         chatter = Chatter.objects.get(id=user_id)
         chatter.device_token = dev_token
