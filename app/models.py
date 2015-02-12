@@ -17,7 +17,7 @@ class Chatter(AbstractEmailUser):
 
     full_name = models.CharField(max_length=200, null=True, blank=True)
     imgur_url = models.CharField(max_length=400, null=False, default="http://i.imgur.com/23el4Y8.jpg")
-    device_token = models.CharField(max_length=64, null=False, default=NO_TOKEN)
+    device_token = models.CharField(max_length=100, null=False, default=NO_TOKEN)
 
     class Meta:
         verbose_name = 'Chatter'
