@@ -93,6 +93,7 @@ class MessageList(APIView):
             # If recipient has a token stored, send them a push notification
             if not to_user.device_token == Chatter.NO_TOKEN:
                 print "Device token found, sending push"
+                print to_user.device_token
                 # Build the payload
                 push_dict = {}
                 notification_dict = {}
