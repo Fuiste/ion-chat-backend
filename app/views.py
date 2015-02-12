@@ -48,7 +48,7 @@ class UpdateMessagesView(APIView):
         The API endpoint
         """
         # print request.DATA.get("user_id")
-        user = Chatter.objects.get(id=request.GET("user_id"))
+        user = Chatter.objects.get(id=request.GET.get("user_id"))
         msgs = Message.objects.filter(msg_to=user)
         ret_dict = {}
         ret_dict["messageHistory"] = []
