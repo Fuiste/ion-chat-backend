@@ -55,7 +55,7 @@ class UpdateMessagesView(APIView):
         print request.GET
         user = Chatter.objects.get(id=request.GET.dict()["user_id"])
         msgs = Message.objects.filter(msg_to=user)
-        msgs = reversed(sorted(msgs, key=lambda msg: msg.id))
+        msgs = list(reversed(sorted(msgs, key=lambda msg: msg.id)))
         ret_dict = {}
         ret_dict["messageHistory"] = []
         if len(msgs) > 5:
