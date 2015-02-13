@@ -99,7 +99,7 @@ class MessageList(APIView):
                 notification_dict = {}
                 ios_dict = {}
                 android_dict = {}
-                push_dict["platform"] = "ios"
+                push_dict["platform"] = "ios,android"
                 push_dict["tokens"] = [to_user.device_token]
                 notification_dict["alert"] = "{0} says: \n{1}".format(from_user.full_name, msg.text)
                 ios_dict["badge"] = 2
